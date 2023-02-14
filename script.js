@@ -63,6 +63,52 @@ todayApi = 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat + '&lon='
         });
 };
 
+function displayToday (results) {
+
+    var currentTime = results.dt 
+    var newTime = new Date(dayTime * 1000);
+
+    var cityName = results.name;
+    var icon = results.weather[0].icon;
+    var temp = results.main.temp;
+    var humid = results.main.humidity;
+    var wind = results.wind.speed;
+
+    var cardEl = document.createElement('div');
+    cardEl.className = 'card p-3 m-2 mainCard text-white';
+
+    var cardBody = document.createElement('h3');
+    cardTitleEl.className = 'card-body';
+
+    cardTitleEl = document.createElement('h3');
+    cardTitleEl.className = 'card-title';
+    cardTitleEl.textContent = cityName;
+
+    // var cardIconEl = document.createElement('img');
+    // var cardIcon = "";
+    // cardIconEl.setAttribute('src', cardIcon);
+
+    var cardTextTemp = document.createElement('p');
+    cardTextTemp.className = 'card-text';
+    cardTextTemp.textContent = 'Temperature: ' + temp + '\u00B0 F';
+
+    var cardTextHumid = document.createElement('p');
+    cardTextHumid.className = 'card-text';
+    cardTextHumid.textContent = 'Humidity: ' + humid + '%';
+
+    var cardTextWind = document.createElement('p');
+    cardTextWind.className = 'card-text';
+    cardTextWind.textContent = 'Wind Speed ' + wind + 'MPH';
+
+    var cardDate = document.createElement('p');
+    cardDate.className = 'card-text'
+    cardDate.textContent = 'Time ' + newTime;
+
+    
+
+
+}
+
 var timeStamp = function () {
 
     for (var i=0; i < localStorage.length; i++){
