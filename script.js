@@ -13,6 +13,7 @@
 // api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid;
 // api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid;
 
+function 
 
 var apiKey = "e2ef6e62e6386ba2adf24ef3abacd567";
 var city;
@@ -35,29 +36,36 @@ function coordinates (cityName) {
         });
 }; 
 
-function getWeather (latitude, longitutde) {
-fiveDayForecast = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
-todayForecast = 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
+function getWeather (lat, lon) {
+fiveDayApi = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
+todayApi = 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
 
-    fetch(fiveDayForecast)
+    fetch(fiveDayApi)
         .then(function(response){
             return response.json();
         })
         .then(function(data){
-            displayFiveDayForecast(data);
+            displayFiveDay(data);
         })
         .catch(function (err){
             console.log(err);
         });
 
-    fetch(todayForecast)
+    fetch(todayApi)
         .then(function(response){
             return response.json();
         })
         .then(function(data){
-            displayTodayForecast(data);
+            displayToday(data);
         })
         .catch(function(err){
             console.log(err);
         });
 };
+
+var timeStamp = function () {
+
+    for (var i=0; i < localStorage.length; i++){
+        var key = localStorage.key(i);
+    }
+}
