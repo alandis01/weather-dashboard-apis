@@ -1,5 +1,4 @@
-// get api's stored in a variable 5 day weather forecast and geo location - takes in the city name and works with the 2nd api to pull the data for that city - geo coding api 
-// create a function ^ first, then you can use that in the fetch. Then where am I fetching, what API am I fetching. Figure out URL for API and what it means. 
+
 // console log, figure out what the data looks like. This is an object need to use documentatioon to get to the object. 
 // for latitude, bracket notation try to console log that specific path 
 // same thing for longitutde, different variable names 
@@ -22,14 +21,26 @@
 var apiKey = "e2ef6e62e6386ba2adf24ef3abacd567";
 var city;
 
-
+// get api's stored in a variable 5 day weather forecast and geo location - takes in the city name and works with the 2nd api to pull the data for that city - geo coding api 
+// create a function ^ first, then you can use that in the fetch. Then where am I fetching, what API am I fetching. Figure out URL for API and what it means. 
 // geocode url
-getCoordinates (cityName) {
-    let geocodeUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=' + apiKey;
+function coordinates (cityName) {
+    var geocodeLocation = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=' + apiKey;
 
-    
+    fetch(geocodeLocation)
+        .then(function (response){
+            return reesponse.json();
+        })
+        .then(function (data){
+            getWeather(data[0].lat, data[o].lon);
+        })
+        .catch(function (err){
+            console.log(err);
+        });
 }; 
 
+function getWeather (latitude, longitutde) {
+fiveDayForecast = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
+todayForecast = 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
 
-fiveDayUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
-todayUrl = 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
+};
