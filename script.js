@@ -29,7 +29,7 @@ function coordinates (cityName) {
 
     fetch(geocodeLocation)
         .then(function (response){
-            return reesponse.json();
+            return response.json();
         })
         .then(function (data){
             getWeather(data[0].lat, data[o].lon);
@@ -43,4 +43,25 @@ function getWeather (latitude, longitutde) {
 fiveDayForecast = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
 todayForecast = 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
 
+    fetch(fiveDayForecast)
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(data){
+            displayFiveDayForecast(data);
+        })
+        .catch(function (err){
+            console.log(err);
+        });
+
+    fetch(todayForecast)
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(data){
+            displayTodayForecast(data);
+        })
+        .catch(function(err){
+            console.log(err);
+        });
 };
