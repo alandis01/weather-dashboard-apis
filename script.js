@@ -64,6 +64,7 @@ todayApi = 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat + '&lon='
 };
 
 function displayToday (results) {
+    today.results.innerHTML = null;
 
     var currentTime = results.dt 
     var newTime = new Date(dayTime * 1000);
@@ -104,11 +105,50 @@ function displayToday (results) {
     cardDate.className = 'card-text'
     cardDate.textContent = 'Time ' + newTime;
 
-    
+    todayResults.appendChild(cardEl);
+    cardEl.appendChild(cardBody);
+    cardBody.append(cardTitleEl, cardDate, cardTextTemp, cardTextHumid, cardTextWind);
 
+};
 
+function displayFiveDay (results){
+
+    for (var i=0; i < results.list.length; i =+ 0) {
+
+        var cityName = results.city.name;
+        var dayTime =list[i].dt_txt;
+        // var icon = results.list[i].weather[0].icon
+        var temp = results.list[i].main.temp;
+        var humid = results.list[i].main.humidity;
+        var wind = results.list[i].wind.speed;
+
+        var cardEl = document.createElement('div');
+        cardEl.className = 'card p-3 m-2 col-12 col-md fiveDayCards text-white';
+
+        var cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
+
+        var cardTextTemp = document.createElement('p');
+        cardTextTemp.className = 'card-text';
+        cardTextTemp.textContent = 'Temperature ' + temp + '\u00B0 F';
+        
+        var cardTextHumid = document.createElement('p');
+        cardTextHumid.className = 'card-text';
+        cardTextHumid.textContent = 'Humidity ' + humid + '%';
+        
+        var cardTextWind = document.createElement('p');
+        cardTextWind.className = 'card-text';
+        cardTextWind.textContent = 'Wind Speed ' + wind + 'mph';
+
+        var cardDate = document.createElement('p');
+        cardDate.className = 'card-text';
+        cardDate.textContent = 'Time ' + dayTime;
+
+        resultsEl.appendChild(cardEl);
+        cardEl.appendChild(cardBody);
+        cardBody.append(cardTitleEl, cardDate, cardTextTemp, cardTextHumid, cardTextWind);
 }
-
+}
 var timeStamp = function () {
 
     for (var i=0; i < localStorage.length; i++){
