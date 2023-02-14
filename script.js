@@ -21,3 +21,15 @@
 
 var apiKey = "e2ef6e62e6386ba2adf24ef3abacd567";
 var city;
+
+
+// geocode url
+getCoordinates (cityName) {
+    let geocodeUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=' + apiKey;
+
+    
+}; 
+
+
+fiveDayUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
+todayUrl = 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
