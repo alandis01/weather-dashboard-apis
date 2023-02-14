@@ -1,8 +1,4 @@
 
-// console log, figure out what the data looks like. This is an object need to use documentatioon to get to the object. 
-// for latitude, bracket notation try to console log that specific path 
-// same thing for longitutde, different variable names 
-// then you can do 2nd API - weather itself. Do the same pattern for this one. 
 // grab search button with query selector so you know when user submits. Attach event listener on form or button itself. or attach to button and listen for click 
 // add cards in HTML 
 // text content here with image tag to add icon and all weather data. setup a function to 
