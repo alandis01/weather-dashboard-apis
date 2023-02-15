@@ -11,9 +11,7 @@
 // ^API for geo location
 
 // api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid;
-// api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid;
-
-function 
+// api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid; 
 
 var apiKey = "e2ef6e62e6386ba2adf24ef3abacd567";
 var city;
@@ -64,6 +62,7 @@ todayApi = 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat + '&lon='
 };
 
 function displayToday (results) {
+
     today.results.innerHTML = null;
 
     var currentTime = results.dt 
@@ -113,6 +112,8 @@ function displayToday (results) {
 
 function displayFiveDay (results){
 
+    todayResults.innerHTML = null;
+
     for (var i=0; i < results.list.length; i =+ 0) {
 
         var cityName = results.city.name;
@@ -154,4 +155,10 @@ var timeStamp = function () {
     for (var i=0; i < localStorage.length; i++){
         var key = localStorage.key(i);
     }
+
+searchButton.onclick = function (event){
+    event.preventDefault();
+
+    var 
+}
 }
