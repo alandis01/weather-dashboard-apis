@@ -19,53 +19,53 @@ var city;
 // get api's stored in a variable 5 day weather forecast and geo location - takes in the city name and works with the 2nd api to pull the data for that city - geo coding api 
 // create a function ^ first, then you can use that in the fetch. Then where am I fetching, what API am I fetching. Figure out URL for API and what it means. 
 // geocode url
-function coordinates (cityName) {
+function coordinates(cityName) {
     var geocodeLocation = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=' + apiKey;
 
     fetch(geocodeLocation)
-        .then(function (response){
+        .then(function (response) {
             return response.json();
         })
-        .then(function (data){
+        .then(function (data) {
             getWeather(data[0].lat, data[o].lon);
         })
-        .catch(function (err){
-            console.log(err);
-        });
-}; 
-
-function getWeather (lat, lon) {
-fiveDayApi = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
-todayApi = 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
-
-    fetch(fiveDayApi)
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            displayFiveDay(data);
-        })
-        .catch(function (err){
-            console.log(err);
-        });
-
-    fetch(todayApi)
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            displayToday(data);
-        })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
         });
 };
 
-function displayToday (results) {
+function getWeather(lat, lon) {
+    fiveDayApi = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
+    todayApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
+
+    fetch(fiveDayApi)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            displayFiveDay(data);
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+
+    fetch(todayApi)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            displayToday(data);
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+};
+
+function displayToday(results) {
 
     today.results.innerHTML = null;
 
-    var currentTime = results.dt 
+    var currentTime = results.dt
     var newTime = new Date(dayTime * 1000);
 
     var cityName = results.name;
@@ -110,14 +110,14 @@ function displayToday (results) {
 
 };
 
-function displayFiveDay (results){
+function displayFiveDay(results) {
 
     todayResults.innerHTML = null;
 
-    for (var i=0; i < results.list.length; i =+ 0) {
+    for (var i = 0; i < results.list.length; i = + 0) {
 
         var cityName = results.city.name;
-        var dayTime =list[i].dt_txt;
+        var dayTime = list[i].dt_txt;
         // var icon = results.list[i].weather[0].icon
         var temp = results.list[i].main.temp;
         var humid = results.list[i].main.humidity;
@@ -132,11 +132,11 @@ function displayFiveDay (results){
         var cardTextTemp = document.createElement('p');
         cardTextTemp.className = 'card-text';
         cardTextTemp.textContent = 'Temperature ' + temp + '\u00B0 F';
-        
+
         var cardTextHumid = document.createElement('p');
         cardTextHumid.className = 'card-text';
         cardTextHumid.textContent = 'Humidity ' + humid + '%';
-        
+
         var cardTextWind = document.createElement('p');
         cardTextWind.className = 'card-text';
         cardTextWind.textContent = 'Wind Speed ' + wind + 'mph';
@@ -148,17 +148,39 @@ function displayFiveDay (results){
         resultsEl.appendChild(cardEl);
         cardEl.appendChild(cardBody);
         cardBody.append(cardTitleEl, cardDate, cardTextTemp, cardTextHumid, cardTextWind);
-}
-}
+    }
+};
+
 var timeStamp = function () {
 
-    for (var i=0; i < localStorage.length; i++){
+    for (var i = 0; i < localStorage.length; i++) {
         var key = localStorage.key(i);
-    }
 
-searchButton.onclick = function (event){
+        var lastCityBtn = document.createElement('button');
+        lastCityBtn.className = 'btn historyButton mx-4 m-1 col-8 col-md';
+        lastCityBtn.textContent = `${localStorage.getItem(key)}`;
+        searchHistory.appendChild(lastCityBtn);
+    }
+};
+
+function eraseHistory() {
+    searchHistory.innerHTML = '';
+    window.location.reload();
+};
+
+searchButton.onclick = function (event) {
     event.preventDefault();
 
-    var 
-}
-}
+    var city = cityInput.value.trim();
+    coordinates(city);
+
+    localStorage.setItem('city', city);
+    timeStamp();
+};
+
+searchHistory.onclick = function(event){
+    event.preventDefault();
+    if (event.target.matches('button')){
+        coordinates(event.target.textContent);
+    }
+};
