@@ -1,3 +1,9 @@
+var apiKey = "e2ef6e62e6386ba2adf24ef3abacd567";
+var searchButton = document.querySelector('#searchButton');
+var searchHistory = document.querySelector('#searchHistory');
+var resultsEl = document.querySelector('#fiveDayResults');
+var todayResults = document.querySelector('#todayResults');
+var cityInput = document.querySelector('#cityInput');
 
 // grab search button with query selector so you know when user submits. Attach event listener on form or button itself. or attach to button and listen for click 
 // add cards in HTML 
@@ -13,8 +19,6 @@
 // api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid;
 // api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid; 
 
-var apiKey = "e2ef6e62e6386ba2adf24ef3abacd567";
-var city;
 
 // get api's stored in a variable 5 day weather forecast and geo location - takes in the city name and works with the 2nd api to pull the data for that city - geo coding api 
 // create a function ^ first, then you can use that in the fetch. Then where am I fetching, what API am I fetching. Figure out URL for API and what it means. 
@@ -62,11 +66,10 @@ function getWeather(lat, lon) {
 };
 
 function displayToday(results) {
-
     today.results.innerHTML = null;
 
     var currentTime = results.dt
-    var newTime = new Date(dayTime * 1000);
+    var newTime = new Date(currentTime * 1000);
 
     var cityName = results.name;
     var icon = results.weather[0].icon;
@@ -83,10 +86,6 @@ function displayToday(results) {
     cardTitleEl = document.createElement('h3');
     cardTitleEl.className = 'card-title';
     cardTitleEl.textContent = cityName;
-
-    // var cardIconEl = document.createElement('img');
-    // var cardIcon = "";
-    // cardIconEl.setAttribute('src', cardIcon);
 
     var cardTextTemp = document.createElement('p');
     cardTextTemp.className = 'card-text';
@@ -112,13 +111,12 @@ function displayToday(results) {
 
 function displayFiveDay(results) {
 
-    todayResults.innerHTML = null;
+    resultsEl.innerHTML = null
 
-    for (var i = 0; i < results.list.length; i = + 0) {
+    for (var i = 0; i < results.list.length; i+= 8) {
 
         var cityName = results.city.name;
-        var dayTime = list[i].dt_txt;
-        // var icon = results.list[i].weather[0].icon
+        var currentTime = list[i].dt_txt;
         var temp = results.list[i].main.temp;
         var humid = results.list[i].main.humidity;
         var wind = results.list[i].wind.speed;
@@ -143,7 +141,7 @@ function displayFiveDay(results) {
 
         var cardDate = document.createElement('p');
         cardDate.className = 'card-text';
-        cardDate.textContent = 'Time ' + dayTime;
+        cardDate.textContent = 'Time ' + currentTime;
 
         resultsEl.appendChild(cardEl);
         cardEl.appendChild(cardBody);
